@@ -18,7 +18,8 @@
 行ったことのない映画館の情報収集
 
 ## 設計書
-<...>
+機能一覧
+https://docs.google.com/spreadsheets/d/1jrlqa699ws0waW36AtqGdHNvtkaNWoVrFeDWcWdQdws/edit?usp=sharing
 
 ## チャレンジ要素一覧
 https://docs.google.com/spreadsheets/d/1KJxxq5HbTfBv9p_RsgPENhPQ1JFFAfb84nMdMWr9-jQ/edit?usp=sharing
