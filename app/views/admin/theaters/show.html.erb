@@ -1,0 +1,23 @@
+<h2>劇場詳細　管理者側</h2>
+ 
+<p><%= @theater.id %></p>
+
+<p><%= @theater.name %></p>
+
+<p><%= @theater.introduction %></p>
+
+<p><%#= @theater.prefecture %></p>
+
+<p><%= @theater.address %></p>
+
+<p><%= @theater.access %></p>
+
+<p><%= @theater.parking %></p>
+
+<p><%= @theater.phone_number %></p>
+
+<p><%= @theater.url %></p>
+
+<p><%= attachment_image_tag @theater, :image %></p>
+
+<p>投稿日時：<%= @theater.created_at.strftime('%Y/%m/%d') %></p>
