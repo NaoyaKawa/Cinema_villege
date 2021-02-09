@@ -15,4 +15,8 @@ Rails.application.routes.draw do
   scope module: :user do
     get "/" => "homes#top"
   end
+  
+  namespace :admin do
+    resources :theaters
+  end
 end
