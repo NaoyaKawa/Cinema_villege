@@ -14,6 +14,14 @@ Rails.application.routes.draw do
 
   scope module: :user do
     get "/" => "homes#top"
+    
+    resources :users, only: [:show, :edit, :update] do
+      collection do
+        patch 'withdraw'
+      end
+    end
+    
+    resources :theaters, only: [:index, :show]
   end
   
   namespace :admin do
