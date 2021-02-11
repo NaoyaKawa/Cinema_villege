@@ -5,6 +5,7 @@ class User::TheatersController < ApplicationController
   
   def show
     @theater = Theater.find(params[:id])
+    @comment = Comment.new
   end
   
 end

@@ -21,7 +21,10 @@ Rails.application.routes.draw do
       end
     end
     
-    resources :theaters, only: [:index, :show]
+    resources :theaters, only: [:index, :show] do
+      resources :favorites, only: [:create, :destroy]
+      resources :comments, only: [:create, :destroy]
+    end
   end
   
   namespace :admin do
