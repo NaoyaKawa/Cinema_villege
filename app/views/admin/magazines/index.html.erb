@@ -1,0 +1,14 @@
+<h2>記事一覧 管理者側</h2>
+
+<%= link_to new_admin_magazine_path, data: {"turbolinks" => false}, class: "btn btn-warning pull-right" do %>
+  <i class="fas fa-plus"></i>
+  新規記事
+<% end %>
+
+<% @magazines.each do |magazines| %>
+
+  <p><%= magazines.id %></p>
+  <%= link_to admin_magazine_path(magazines.id) do %>
+  <p><%= magazines.title %></p>
+  <% end %>
+<% end %>
