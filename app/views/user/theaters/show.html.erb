@@ -1,0 +1,54 @@
+<h2>劇場詳細　顧客側</h2>
+ 
+<p><%= @theater.id %></p>
+
+<p><%= @theater.name %></p>
+
+<p><%= @theater.introduction %></p>
+
+<p><%#= @theater.prefecture %></p>
+
+<p><%= @theater.address %></p>
+
+<p><%= @theater.access %></p>
+
+<p><%= @theater.parking %></p>
+
+<p><%= @theater.phone_number %></p>
+
+<p><%= @theater.url %></p>
+
+<p><%= attachment_image_tag @theater, :image %></p>
+
+<p>投稿日時：<%= @theater.created_at.strftime('%Y/%m/%d') %></p>
+
+<p>コメント件数：<%= @theater.comments.count %></p>
+<% @theater.comments.each do |comments| %>
+  
+  <%= comments.user.name %>
+  <%= comments.created_at.strftime('%Y/%m/%d') %><%= comments.comment %>
+  <% if comments.user == current_user %>
+  <div class="comment-delete">
+    <%= link_to "削除", theater_comment_path(comments.theater, comments), method: :delete %>
+  </div>
+  <% end %>
+<% end %>
+
+<%= form_with(model:[@theater, @comment], local: true) do |f| %>
+  <%= f.text_area :comment, placeholder: "コメントをここに" %>
+  <%= f.submit "送信する" %>
+<% end %>
+
+<% if @theater.favorited_by?(current_user) %>
+    <p>
+      <%= link_to theater_favorite_path(@theater), method: :delete do %>
+        ♥<%= @theater.favorites.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to theater_favorites_path(@theater), method: :post do %>
+        ♡<%= @theater.favorites.count %> いいね
+      <% end %>
+    </p>
+  <% end %>
