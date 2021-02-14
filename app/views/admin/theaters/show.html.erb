@@ -1,5 +1,5 @@
 <h2>劇場詳細　管理者側</h2>
- 
+
 <p><%= @theater.id %></p>
 
 <p><%= @theater.name %></p>
@@ -21,3 +21,44 @@
 <p><%= attachment_image_tag @theater, :image %></p>
 
 <p>投稿日時：<%= @theater.created_at.strftime('%Y/%m/%d') %></p>
+
+<script type="text/javascript">
+  function initMap() {
+<%# latitude,longitudeから位置を特定 %>
+    var test ={lat: <%= @theater.latitude %>, lng: <%= @theater.longitude %>};
+    var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 15,
+              center: test
+              });
+    var transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(map);
+
+    var contentString = '住所：<%= @theater.address %>';
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
+ <%# Map上の指定した位置にピンを挿して表示する %>
+    var marker = new google.maps.Marker({
+                  position:test,
+                  map: map,
+                  title: contentString
+                 });
+
+     marker.addListener('click', function() {
+       infowindow.open(map, marker);
+     });
+  }
+</script>
+
+<script async defer
+              src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAwUT9PQERs4mzg7KYscIcddJJsZx6KB_c&callback=initMap">
+</script>
+<%# 表示するmapのcss %>
+<style type="text/css">
+  #map { height: 200px;
+         width: 70%;}
+</style>
+
+
+<div id="map"></div>
