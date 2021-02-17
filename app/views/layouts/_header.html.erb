@@ -18,15 +18,15 @@
         <li class="header-name">
           ようこそ、<%= current_user.name %>さん！ 
         </li>
-        <li><%= link_to "マイページ", user_path, method: :delete %></li>
-        <li><%= link_to "劇場一覧", theaters_path, method: :delete %></li>
-        <li><%= link_to "マガジン", magazine_path, method: :delete %></li>
+        <li><%= link_to "マイページ", user_path %></li>
+        <li><%= link_to "劇場一覧", theaters_path %></li>
+        <li><%= link_to "マガジン", magazine_path %></li>
         <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
       <% elsif admin_signed_in? %>
       
         <li>管理者</li>
-        <li><%= link_to "劇場一覧", admin_theater_path, method: :delete %></li>
-        <li><%= link_to "マガジン", admin_magazine_path, method: :delete %></li>
+        <li><%= link_to "劇場一覧", admin_theaters_path %></li>
+        <li><%= link_to "マガジン", admin_magazine_path %></li>
         <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
       <% else %>
         <li>ゲストユーザー</li>
