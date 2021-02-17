@@ -1,7 +1,8 @@
 <header class="navbar navbar-fixed-top navbar-inverse" style="background:#D9E5FF;">
+  <div class="container">
   <% if admin_signed_in? %><!-- 管理者がログインしている時 -->
     <h2>
-      <%= link_to "Cineme Village", admin_theater_path, class:"text-dark" %>
+      <%= link_to "Cineme Village", "/", class:"text-dark" %>
     </h2>
   <% else %> <!--カスタマーがログインしている時 -->
     <h2>
@@ -15,18 +16,17 @@
     <ul class="nav navbar-nav navbar-right ml-auto">
       <% if user_signed_in? %> <!--カスタマーがログインしている時 -->
         <li class="header-name">
-          ようこそ、<%= current_user.name %>さん！
+          ようこそ、<%= current_user.name %>さん！ 
         </li>
-        <li>ユーザー</li>
-        <li><%= link_to "マイページ", destroy_admin_session_path, method: :delete %></li>
-        <li><%= link_to "劇場一覧", destroy_admin_session_path, method: :delete %></li>
-        <li><%= link_to "マガジン", destroy_admin_session_path, method: :delete %></li>
+        <li><%= link_to "マイページ", user_path, method: :delete %></li>
+        <li><%= link_to "劇場一覧", theaters_path, method: :delete %></li>
+        <li><%= link_to "マガジン", magazine_path, method: :delete %></li>
         <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
       <% elsif admin_signed_in? %>
       
         <li>管理者</li>
-        <li><%= link_to "劇場一覧", destroy_admin_session_path, method: :delete %></li>
-        <li><%= link_to "マガジン", destroy_admin_session_path, method: :delete %></li>
+        <li><%= link_to "劇場一覧", admin_theater_path, method: :delete %></li>
+        <li><%= link_to "マガジン", admin_magazine_path, method: :delete %></li>
         <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
       <% else %>
         <li>ゲストユーザー</li>
@@ -38,4 +38,5 @@
     </nav>
     </button>
   </nav>
+  </div>
 </header>

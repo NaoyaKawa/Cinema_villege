@@ -29,11 +29,13 @@ class Admin::TheatersController < ApplicationController
 
   def update
     @theater = Theater.find(params[:id])
-    
+    if
       @theater.update(theater_params)
-      flash[:success] = "商品内容をを変更しました"
+      flash[:success] = "内容をを変更しました"
       redirect_to admin_theater_path(@theater.id)
-    
+    else
+      render :edit
+    end
   end
 
   def destroy

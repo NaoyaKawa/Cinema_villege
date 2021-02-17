@@ -9,6 +9,7 @@
 <p><%#= @theater.prefecture %></p>
 
 <p><%= @theater.address %></p>
+<div id="map"></div>
 
 <p><%= @theater.access %></p>
 
@@ -21,6 +22,9 @@
 <p><%= attachment_image_tag @theater, :image %></p>
 
 <p>投稿日時：<%= @theater.created_at.strftime('%Y/%m/%d') %></p>
+
+<p><%= link_to "Edit", edit_admin_theater_path(@theater), class: "btn btn-success" %></p>
+<p><%= link_to "Destroy", admin_theater_path(@theater), class: "btn btn-sm btn-danger", method: :delete %></p>
 
 <script type="text/javascript">
   function initMap() {
@@ -61,4 +65,3 @@
 </style>
 
 
-<div id="map"></div>
