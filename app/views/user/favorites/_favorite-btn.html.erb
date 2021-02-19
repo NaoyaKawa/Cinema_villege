@@ -1,0 +1,13 @@
+          <% if @theater.favorited_by?(current_user) %>
+          <p>
+            <%= link_to theater_favorite_path(@theater), method: :delete, remote: true, class:"btn btn-danger" do %>
+            ♥ <%= @theater.favorites.count %>件
+            <% end %>
+          </p>
+          <% else %>
+          <p>
+          <%= link_to theater_favorites_path(@theater), method: :post, remote: true, class:"btn btn-outline-danger" do %>
+          ♡ <%= @theater.favorites.count %>件
+          <% end %>
+          </p>
+          <% end %>

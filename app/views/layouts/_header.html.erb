@@ -1,42 +1,34 @@
-<header class="navbar navbar-fixed-top navbar-inverse" style="background:#D9E5FF;">
+<header class="shadow-sm">
+  <nav class="navbar navbar-expand-lg navbar-light">
   <div class="container">
-  <% if admin_signed_in? %><!-- 管理者がログインしている時 -->
-    <h2>
-      <%= link_to "Cineme Village", "/", class:"text-dark" %>
-    </h2>
-  <% else %> <!--カスタマーがログインしている時 -->
-    <h2>
+
+
+    <h2> <i class="fas fa-film"></i>
       <%= link_to "Cinema Village", "/", class:"text-dark" %>
     </h2>
-  <% end %>
-  
-  <nav>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <nav class="navbar navbar-expand-lg navbar-light">
-    <ul class="nav navbar-nav navbar-right ml-auto">
+
+    <ul class="nav mx-3">
       <% if user_signed_in? %> <!--カスタマーがログインしている時 -->
-        <li class="header-name">
-          ようこそ、<%= current_user.name %>さん！ 
+        <li>
+          ようこそ、<%= current_user.name %>さん！
         </li>
-        <li><%= link_to "マイページ", user_path %></li>
-        <li><%= link_to "劇場一覧", theaters_path %></li>
-        <li><%= link_to "マガジン", magazine_path %></li>
-        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+        <li><%= link_to "マイページ", user_path(current_user), class: "btn btn-outline-primary" %></li>
+        <li><%= link_to "劇場一覧", theaters_path, class: "btn btn-outline-primary" %></li>
+        <li><%#= link_to "マガジン", magazine_path, class: "btn btn-outline-primary" %></li>
+        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-primary" %></li>
       <% elsif admin_signed_in? %>
-      
-        <li>管理者</li>
-        <li><%= link_to "劇場一覧", admin_theaters_path %></li>
-        <li><%= link_to "マガジン", admin_magazine_path %></li>
-        <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
+
+        <li><%= link_to "劇場一覧", admin_theaters_path, class: "btn btn-outline-primary" %></li>
+        <li><%= link_to "マガジン", admin_magazines_path, class: "btn btn-outline-primary" %></li>
+        <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-outline-primary" %></li>
       <% else %>
         <li>ゲストユーザー</li>
-        <li><%= link_to "新規登録", new_user_registration_path %></li>
-        <li><%= link_to "ログイン", new_user_session_path %></li>
+        <li><%= link_to "新規登録", new_user_registration_path, class: "btn btn-outline-primary" %></li>
+        <li><%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary" %></li>
       <% end %>
-      
+
     </ul>
-    </nav>
-    </button>
-  </nav>
+
   </div>
+  </nav>
 </header>

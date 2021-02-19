@@ -41,7 +41,7 @@ class Admin::TheatersController < ApplicationController
   def destroy
     @theater = Theater.find(params[:id])
     @theater.destroy
-    redirect_to admin_theater_path
+    redirect_to theaters_path
   end
 
   private

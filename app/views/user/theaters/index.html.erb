@@ -1,17 +1,21 @@
-<h2>劇場一覧 顧客側</h2>
-
-<% @theaters.each do |theaters| %>
-
-<p><%= theaters.id %></p>
-<%= link_to theater_path(theaters.id) do %>
-<p><%= theaters.name %></p>
-<% end %>
-<p><%#= @theater.prefecture %></p>
-
-
-
-
-
-
-
-<% end %>
+<div class="container container-m">
+ <h2>劇場一覧 顧客側</h2>
+  <% @theaters.each do |theaters| %>
+   <%= link_to theater_path(theaters.id) do %>
+    <div class="card w-200 mx-auto mt-4 shadow-lg">
+     <div class="card-body">
+      <div class="row">
+       <div class="col-2">
+        <%= attachment_image_tag theaters, :image, :fill, 200, 100, fallback: "no_image.jpg" %>
+       </div>
+       <div class="col-10">
+        <h5 class="card-title"><%= theaters.name %></h5>
+        <p class="card-text"><%= theaters.name %></p>
+        <p>コメント件数：<%= theaters.comments.count %></p>
+       </div> 
+     </div>
+    </div>
+   </div>
+  <% end %>
+ <% end %>
+</div>

@@ -1,54 +1,129 @@
-<h2>劇場詳細　顧客側</h2>
- 
-<p><%= @theater.id %></p>
+<div class="container container-m">
+  <div class="card w-200 mx-auto mt-4 shadow-lg">
+    <div class="card-body">
+      <div class="row">
+        <h2 class="card-title m-2"><%= @theater.name %></h2>
+        <div class="card-text m-4">
+        <p>コメント件数：<%= @theater.comments.count %></p>
 
-<p><%= @theater.name %></p>
+        <p><%= @theater.introduction %></p>
+        <p><%= @theater.Prefecture %></p>
+          <%= render "user/favorites/favorite-btn", theater: @theater %>
+        </div>
 
-<p><%= @theater.introduction %></p>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="col-2">住所</th>
+              <td><%= @theater.address %></td>
+            </tr>
+            <tr>
+              <th scope="col">アクセス</th>
+              <td><%= @theater.access %></td>
+            </tr>
+            <tr>
+              <th scope="col">駐車場</th>
+              <td><%= @theater.parking %></td>
+            </tr>
+            <tr>
+              <th scope="col">電話番号</th>
+              <td><%= @theater.phone_number %></td>
+            </tr>
+            <tr>
+              <th scope="col">URL</th>
+              <td><%= @theater.url %></td>
+            </tr>
+          </tbody>
+        </table>
 
-<p><%#= @theater.prefecture %></p>
+        <div id="map"></div>
+        <p><%= attachment_image_tag @theater, :image, :fill, 200, 100 %></p>
 
-<p><%= @theater.address %></p>
+        <% @theater.comments.each do |comments| %>
+          <table class="table">
+           <tbody>
+            <tr>
+              <td>
+              <%= comments.user.name %>
+              </td>
+              <td>
+              <%= comments.created_at.strftime('%Y/%m/%d') %>
+              </td>
 
-<p><%= @theater.access %></p>
+              <td>
+              <%= comments.comment %>
+              </td>
+              <td>
+                <% if comments.user == current_user %>
+                  <div class="comment-delete">
+                    <%= link_to "削除", theater_comment_path(comments.theater, comments), method: :delete, class:"btn btn-outline-danger" %>
+                  </div>
+                <% end %>
+              </td>
+            </tr>
+           </tbody>
+          </table>
+        <% end %>
 
-<p><%= @theater.parking %></p>
-
-<p><%= @theater.phone_number %></p>
-
-<p><%= @theater.url %></p>
-
-<p><%= attachment_image_tag @theater, :image %></p>
-
-<p>投稿日時：<%= @theater.created_at.strftime('%Y/%m/%d') %></p>
-
-<p>コメント件数：<%= @theater.comments.count %></p>
-<% @theater.comments.each do |comments| %>
-  
-  <%= comments.user.name %>
-  <%= comments.created_at.strftime('%Y/%m/%d') %><%= comments.comment %>
-  <% if comments.user == current_user %>
-  <div class="comment-delete">
-    <%= link_to "削除", theater_comment_path(comments.theater, comments), method: :delete %>
+        <%= form_with(model:[@theater, @comment], local: true) do |f| %>
+          <div class="form-group">
+            <%= f.text_area :comment, placeholder: "コメントをここに", class:"form-control" %>
+            <div class="field" id="star">
+            <%= f.label :clean, "綺麗さ：" %>
+             <%= f.hidden_field :clean, id: :review_star %>
+            <script>
+              $('#star').raty({
+              size     : 36,
+              starOff:  '<%= asset_path('star-off.png') %>',
+              starOn : '<%= asset_path('star-on.png') %>',
+              starHalf: '<%= asset_path('star-half.png') %>',
+              scoreName: 'comment[clean]',
+              half: true, 
+              });
+            </script>
+            </div>
+          </div>
+          <%= f.submit "送信する", class:"btn btn-primary btn-lg" %>
+        <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-  <% end %>
-<% end %>
 
-<%= form_with(model:[@theater, @comment], local: true) do |f| %>
-  <%= f.text_area :comment, placeholder: "コメントをここに" %>
-  <%= f.submit "送信する" %>
-<% end %>
+<script type="text/javascript">
+function initMap() {
+<%# latitude,longitudeから位置を特定 %>
+    var test ={lat: <%= @theater.latitude %>, lng: <%= @theater.longitude %>};
+    var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 15,
+              center: test
+              });
+    var transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(map);
 
-<% if @theater.favorited_by?(current_user) %>
-    <p>
-      <%= link_to theater_favorite_path(@theater), method: :delete do %>
-        ♥<%= @theater.favorites.count %> いいね
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to theater_favorites_path(@theater), method: :post do %>
-        ♡<%= @theater.favorites.count %> いいね
-      <% end %>
-    </p>
-  <% end %>
+    var contentString = '住所：<%= @theater.address %>';
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
+ <%# Map上の指定した位置にピンを挿して表示する %>
+    var marker = new google.maps.Marker({
+                  position:test,
+                  map: map,
+                  title: contentString
+                 });
+
+     marker.addListener('click', function() {
+       infowindow.open(map, marker);
+     });
+  }
+</script>
+
+<script async defer
+              src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap">
+</script>
+<%# 表示するmapのcss %>
+<style type="text/css">
+  #map { height: 200px;
+         width: 400%;}
+</style>
