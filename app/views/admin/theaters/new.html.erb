@@ -8,7 +8,7 @@
 <%= f.text_field :introduction %>
 
 <%= f.label :"都道府県" %>
-<%= f.select :prefecture_id, Theater.prefecture_ids.keys, {} %>
+<%= f.select :prefecture, Theater.prefectures.keys, {} %>
 
 <%= f.label :"住所" %>
 <%= f.text_field :address %>

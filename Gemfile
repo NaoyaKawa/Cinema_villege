@@ -74,6 +74,9 @@ gem 'enum_help'
 gem 'rails-i18n'
 gem "geocoder"
 gem 'dotenv-rails'
+gem 'ransack'
+gem 'rubocop', require:false
+gem 'rubocop-rails', require:false
 group :production do
   gem 'mysql2'
 end

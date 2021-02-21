@@ -1,6 +1,5 @@
 class Theater < ApplicationRecord
   has_many :prices, dependent: :destroy
-  has_many :theater_tags
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   attachment :image
@@ -10,8 +9,8 @@ class Theater < ApplicationRecord
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?
   end
-  
-  enum prefecture_id:{
+
+  enum prefecture:{
      "---":0,
      北海道:1,青森県:2,岩手県:3,宮城県:4,秋田県:5,山形県:6,福島県:7,
      茨城県:8,栃木県:9,群馬県:10,埼玉県:11,千葉県:12,東京都:13,神奈川県:14,

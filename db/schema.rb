@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_19_032016) do
+ActiveRecord::Schema.define(version: 2021_02_19_070615) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -55,22 +55,23 @@ ActiveRecord::Schema.define(version: 2021_02_19_032016) do
   end
 
   create_table "tags", force: :cascade do |t|
-    t.string "name"
+    t.string "tag_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "theater_tags", force: :cascade do |t|
-    t.integer "theater_id"
-    t.integer "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "theater_id"
+    t.integer "tag_id"
+    t.index ["tag_id"], name: "index_theater_tags_on_tag_id"
+    t.index ["theater_id"], name: "index_theater_tags_on_theater_id"
   end
 
   create_table "theaters", force: :cascade do |t|
     t.string "name"
     t.text "introduction"
-    t.integer "prefecture_id"
     t.string "address"
     t.string "access"
     t.string "parking"
@@ -81,7 +82,7 @@ ActiveRecord::Schema.define(version: 2021_02_19_032016) do
     t.string "image_id"
     t.float "latitude"
     t.float "longitude"
-    t.integer "Prefecture", default: 0, null: false
+    t.integer "prefecture", default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|

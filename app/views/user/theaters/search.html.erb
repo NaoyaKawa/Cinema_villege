@@ -1,13 +1,6 @@
 <div class="container container-m">
- <h2>劇場一覧 顧客側</h2>
- <h1>劇場検索</h1>
-  <%= search_form_for @q, url: search_theaters_path do |f| %>
-  <%= f.label :name_cont, '劇場名' %>
-  <%= f.search_field :name_cont %>
-  <br>
-  <%= f.submit '検索' %>
-<% end %>
-  <% @theaters.each do |theaters| %>
+ <h2>劇場一覧 検索結果</h2>
+  <% @results.each do |theaters| %>
    <%= link_to theater_path(theaters.id) do %>
     <div class="card w-200 mx-auto mt-4 shadow-lg">
      <div class="card-body">
@@ -19,7 +12,7 @@
         <h5 class="card-title"><%= theaters.name %></h5>
         <p class="card-text"><%= theaters.name %></p>
         <p>コメント件数：<%= theaters.comments.count %></p>
-       </div>
+       </div> 
      </div>
     </div>
    </div>

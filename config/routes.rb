@@ -24,6 +24,9 @@ Rails.application.routes.draw do
     resources :theaters, only: [:index, :show] do
       resources :favorites, only: [:create, :destroy]
       resources :comments, only: [:create, :destroy]
+      collection do
+      get 'search'
+      end
     end
   end
   
