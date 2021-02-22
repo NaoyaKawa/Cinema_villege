@@ -2,35 +2,45 @@
   <div class="card w-200 mx-auto mt-4 shadow-lg">
     <div class="card-body">
       <div class="row">
+        <div class="col-12">
         <h2 class="card-title m-2"><%= @theater.name %></h2>
-        <div class="card-text m-4">
-        <p>コメント件数：<%= @theater.comments.count %></p>
-
-        <% @average = 0 %>
-        <% @theater.comments.each do |comment| %>
-        <% @average += (comment.clean / @theater.comments.count ) %>
-        <% end %>
-        <p>評価 <%= @average.round(1) %></p>
-        <span id="star-rate-<%= @average.to_i %>"></span>
-        <script>
-          $('#star-rate-<%= @average.to_i %>').raty({
-          size: 36,
-          starOff: "<%= asset_path('star-off.png') %>",
-          starOn: "<%= asset_path('star-on.png') %>",
-          starHalf: "<%= asset_path('star-half.png') %>",
-          half: true,
-          readOnly: true,
-          score: <%= @average %>,
-          });
-        </script>
-        
-        <p><%= @theater.introduction %></p>
-        <p><%= @theater.prefecture %></p>
-          <%= render "user/favorites/favorite-btn", theater: @theater %>
         </div>
+      </div>
+      <div class="row">
+        <div class="col-9">
+          <div class="card-text m-4">
+            <p><%= @theater.introduction %></p>
+            <p><%= @theater.prefecture %></p>
+            <p>コメント件数：<%= @theater.comments.count %></p>
+            <% @average = 0 %>
+            <% @theater.comments.each do |comment| %>
+              <% @average += (comment.clean / @theater.comments.count ) %>
+            <% end %>
+            <p>評価 <%= @average.round(1) %>
+            <span id="star-rate-<%= @average.to_i %>"></span>
+            <script>
+              $('#star-rate-<%= @average.to_i %>').raty({
+              size: 36,
+              starOff: "<%= asset_path('star-off.png') %>",
+              starOn: "<%= asset_path('star-on.png') %>",
+              starHalf: "<%= asset_path('star-half.png') %>",
+              half: true,
+              readOnly: true,
+              score: <%= @average %>,
+              });
+            </script>
+            </p>
+          </div>
+        </div>
+          <div class="col-2">
+            <%= render "user/favorites/favorite-btn", theater: @theater %>
+          </div>
+      </div>
 
-        <table class="table">
-          <tbody>
+      <div class="row">
+        <div class="col-6">
+          <table class="table">
+            <tbody>
             <tr>
               <th scope="col-2">住所</th>
               <td><%= @theater.address %></td>
@@ -51,12 +61,15 @@
               <th scope="col">URL</th>
               <td><%= @theater.url %></td>
             </tr>
-          </tbody>
-        </table>
-
-        <div id="map"></div>
-        <p><%= attachment_image_tag @theater, :image, :fill, 200, 100 %></p>
-
+            </tbody>
+          </table>
+        </div>
+        <div class="col-4 my-4">
+          <p><%= attachment_image_tag @theater, :image, size: "270x190", fallback: "no_image.jpg" %></p>
+          <div id="map"></div>
+        </div>
+      </div>
+      <h2 class="m-2">コメント</h2>
         <% @theater.comments.each do |comments| %>
           <table class="table">
            <tbody>
@@ -67,7 +80,6 @@
               <td>
               <%= comments.created_at.strftime('%Y/%m/%d') %>
               </td>
-
               <td>
               <%= comments.comment %>
               </td>
@@ -100,12 +112,12 @@
            </tbody>
           </table>
         <% end %>
-
+        <h2 class="m-2">コメントを投稿する</h2>
         <%= form_with(model:[@theater, @comment], local: true) do |f| %>
           <div class="form-group">
             <%= f.text_area :comment, placeholder: "コメントをここに", class:"form-control" %>
             <div class="field" id="star">
-            <%= f.label :clean, "綺麗さ：" %>
+            <%= f.label :clean, "評価：" %>
             <%= f.hidden_field :clean, id: :review_star %>
             <script>
               $('#star').raty({
@@ -161,5 +173,5 @@ function initMap() {
 <%# 表示するmapのcss %>
 <style type="text/css">
   #map { height: 200px;
-         width: 400%;}
+         width: 100%;}
 </style>
