@@ -1,13 +1,11 @@
 class Admin::TheatersController < ApplicationController
   def index
     @theaters = Theater.all
-    @tag_list = Tag.all
     @theater = current_user.theaters.new
   end
 
   def show
     @theater = Theater.find(params[:id])
-    @theater_tags = @theater.tags
   end
 
   def new
@@ -16,10 +14,8 @@ class Admin::TheatersController < ApplicationController
 
   def create
     @theater = Theater.new(theater_params)
-    tag_list = params[:theater][:tag_name].split(nil)
     if
       @theater.save
-      @theater.save_tag(tag_list)
       flash[:notice] = "登録しました"
       redirect_to admin_theater_path(@theater.id)
     else

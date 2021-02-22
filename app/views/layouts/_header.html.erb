@@ -6,29 +6,26 @@
     <h2> <i class="fas fa-film"></i>
       <%= link_to "Cinema Village", "/", class:"text-dark" %>
     </h2>
-
-    <ul class="nav mx-3">
-      <% if user_signed_in? %> <!--カスタマーがログインしている時 -->
-        <li>
-          ようこそ、<%= current_user.name %>さん！
-        </li>
-        <li><%= link_to "マイページ", user_path(current_user), class: "btn btn-outline-primary" %></li>
-        <li><%= link_to "劇場一覧", theaters_path, class: "btn btn-outline-primary" %></li>
-        <li><%#= link_to "マガジン", magazine_path, class: "btn btn-outline-primary" %></li>
-        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-primary" %></li>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <% if user_signed_in? %>
+        <li class="nav-item active"><%= link_to "マイページ", user_path(current_user), class: "nav-link" %></li>
+        <li class="nav-item active"><%= link_to "劇場一覧", theaters_path, class: "nav-link" %></li>
+        <li class="nav-item active"><%= link_to "マガジン", magazines_path, class: "nav-link" %></li>
+        <li class="nav-item active"><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link" %></li>
       <% elsif admin_signed_in? %>
 
-        <li><%= link_to "劇場一覧", admin_theaters_path, class: "btn btn-outline-primary" %></li>
-        <li><%= link_to "マガジン", admin_magazines_path, class: "btn btn-outline-primary" %></li>
-        <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-outline-primary" %></li>
+        <li class="nav-item active"><%= link_to "劇場一覧", admin_theaters_path, class: "nav-link" %></li>
+        <li class="nav-item active"><%= link_to "マガジン", admin_magazines_path, class: "nav-link" %></li>
+        <li class="nav-item active"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link" %></li>
       <% else %>
-        <li>ゲストユーザー</li>
-        <li><%= link_to "新規登録", new_user_registration_path, class: "btn btn-outline-primary" %></li>
-        <li><%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary" %></li>
+        <li class="nav-item active">ゲストユーザー</li>
+        <li class="nav-item active"><%= link_to "新規登録", new_user_registration_path, class: "nav-link" %></li>
+        <li class="nav-item active"><%= link_to "ログイン", new_user_session_path, class: "nav-link" %></li>
       <% end %>
 
     </ul>
-
+  </div>
   </div>
   </nav>
 </header>

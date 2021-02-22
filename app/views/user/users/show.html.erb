@@ -1,8 +1,19 @@
-<%= @user.name %>
+<div class="container container-m">
+  <div class="card w-200 mx-auto mt-4 shadow-lg">
+    <div class="card-body">
+      <div class="row">
+      <p><strong>登録情報　</strong>
+        <%= @user.name %>
 
-<%= @user.email %>
+        <%= @user.email %>
 
-<%= @user.phone_number %>
+        <%= @user.phone_number %>
+        
+        <p><%= attachment_image_tag @user, :image, :fill, 200, 100 %></p>
 
-<p><strong>登録情報　</strong>
 <%= link_to "編集する", edit_user_path(@user), class: "btn btn-success"%>
+
+</div>
+      </div>
+    </div>
+  </div>

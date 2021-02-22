@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   scope module: :user do
     get "/" => "homes#top"
+    resources :magazines, only: [:index, :show]
     
     resources :users, only: [:show, :edit, :update] do
       collection do

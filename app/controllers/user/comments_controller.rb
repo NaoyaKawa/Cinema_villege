@@ -4,7 +4,7 @@ class User::CommentsController < ApplicationController
     comment = current_user.comments.new(comment_params)
     comment.theater_id = theater.id
     comment.save
-    redirect_to theaters_path(theater)
+    redirect_to theater_path(theater.id)
   end
 
   def destroy

@@ -6,6 +6,24 @@
         <div class="card-text m-4">
         <p>コメント件数：<%= @theater.comments.count %></p>
 
+        <% @average = 0 %>
+        <% @theater.comments.each do |comment| %>
+        <% @average += (comment.clean / @theater.comments.count ) %>
+        <% end %>
+        <p>評価 <%= @average.round(1) %></p>
+        <span id="star-rate-<%= @average.to_i %>"></span>
+        <script>
+          $('#star-rate-<%= @average.to_i %>').raty({
+          size: 36,
+          starOff: "<%= asset_path('star-off.png') %>",
+          starOn: "<%= asset_path('star-on.png') %>",
+          starHalf: "<%= asset_path('star-half.png') %>",
+          half: true,
+          readOnly: true,
+          score: <%= @average %>,
+          });
+        </script>
+        
         <p><%= @theater.introduction %></p>
         <p><%= @theater.prefecture %></p>
           <%= render "user/favorites/favorite-btn", theater: @theater %>
@@ -54,6 +72,24 @@
               <%= comments.comment %>
               </td>
               <td>
+                <div class="relative-comment-evaluation">
+                <span>評価：</span>
+                <span id="star-rate-<%= comments.id %>"></span>
+                <script>
+                $('#star-rate-<%= comments.id %>').raty({
+                size: 36,
+                starOff: "<%= asset_path('star-off.png') %>",
+                starOn: "<%= asset_path('star-on.png') %>",
+                starHalf: "<%= asset_path('star-half.png') %>",
+                half: true,
+                readOnly: true,
+                score: <%= comments.clean %>,
+                });
+                </script>
+                <%= comments.clean %>
+                </div>
+              </td>
+              <td>
                 <% if comments.user == current_user %>
                   <div class="comment-delete">
                     <%= link_to "削除", theater_comment_path(comments.theater, comments), method: :delete, class:"btn btn-outline-danger" %>
@@ -70,7 +106,7 @@
             <%= f.text_area :comment, placeholder: "コメントをここに", class:"form-control" %>
             <div class="field" id="star">
             <%= f.label :clean, "綺麗さ：" %>
-             <%= f.hidden_field :clean, id: :review_star %>
+            <%= f.hidden_field :clean, id: :review_star %>
             <script>
               $('#star').raty({
               size     : 36,

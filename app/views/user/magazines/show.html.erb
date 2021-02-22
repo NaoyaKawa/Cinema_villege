@@ -1,0 +1,14 @@
+<div class="container container-m">
+  <div class="card w-200 mx-auto mt-4 shadow-lg">
+    <div class="card-body">
+      <div class="row">
+      
+<h2 class="card-title m-2"><%= @magazine.title %></h2>
+<p><%= @magazine.created_at.strftime('%Y/%m/%d') %></p>
+
+<p><%= @magazine.content %></p>
+
+       </div>
+      </div>
+    </div>
+  </div>

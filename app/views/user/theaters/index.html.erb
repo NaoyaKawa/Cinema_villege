@@ -1,11 +1,10 @@
 <div class="container container-m">
  <h2>劇場一覧 顧客側</h2>
- <h1>劇場検索</h1>
+
   <%= search_form_for @q, url: search_theaters_path do |f| %>
-  <%= f.label :name_cont, '劇場名' %>
-  <%= f.search_field :name_cont %>
+  <%= f.search_field :name_cont, class:"form-control mr-sm-2" %>
   <br>
-  <%= f.submit '検索' %>
+  <%= f.submit '検索', class:"btn btn-outline-success my-2 my-sm-0" %>
 <% end %>
   <% @theaters.each do |theaters| %>
    <%= link_to theater_path(theaters.id) do %>
@@ -13,12 +12,19 @@
      <div class="card-body">
       <div class="row">
        <div class="col-2">
-        <%= attachment_image_tag theaters, :image, :fill, 200, 100, fallback: "no_image.jpg" %>
+        <%= attachment_image_tag theaters, :image, size: "120x120", fallback: "no_image.jpg" %>
+        
        </div>
        <div class="col-10">
         <h5 class="card-title"><%= theaters.name %></h5>
         <p class="card-text"><%= theaters.name %></p>
+        <p class="card-text"><%= theaters.prefecture %></p>
         <p>コメント件数：<%= theaters.comments.count %></p>
+        <% @average = 0 %>
+        <% theaters.comments.each do |comment| %>
+        <% @average += (comment.clean / theaters.comments.count ) %>
+        <% end %>
+        <p>評価 <%= @average.round(1) %></p>
        </div>
      </div>
     </div>

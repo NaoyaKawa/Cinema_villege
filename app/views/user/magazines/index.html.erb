@@ -1,0 +1,18 @@
+<div class="container container-m">
+<h2>記事一覧</h2>
+
+<% @magazines.each do |magazines| %>
+  <div class="card w-200 mx-auto mt-4 shadow-lg">
+     <div class="card-body">
+      <div class="row">
+       <div class="col-4">
+        <%= link_to magazine_path(magazines.id) do %>
+        <h5 class="card-title"><%= magazines.title %></h5>
+        <p class="card-text"><%= magazines.created_at.strftime('%Y/%m/%d') %></p>
+        </div>
+     </div>
+    </div>
+   </div>
+  <% end %>
+<% end %>
+</div>
