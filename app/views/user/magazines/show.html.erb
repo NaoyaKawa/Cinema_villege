@@ -1,0 +1,24 @@
+<div class="container container-m">
+  <div class="card w-200 mx-auto mt-4 shadow-lg">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-9">
+          <h2 class="card-title m-2"><%= @magazine.title %></h2>
+          <p>投稿日時：<%= @magazine.created_at.strftime('%Y/%m/%d') %></p>
+        </div>
+      </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="card-text m-4">
+              <p><%= attachment_image_tag @magazine, :image, size: "800x600", fallback: "no_image.jpg", class: "form-control-file user_image" %></p>
+            </div>
+          </div>
+        <div class="col-12">
+          <div class="card-text m-4">
+            <p><%= @magazine.content %></p>
+          </div>
+        </div>
+        </div>
+    </div>
+  </div>
+</div>

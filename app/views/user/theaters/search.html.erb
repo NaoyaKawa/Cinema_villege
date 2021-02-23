@@ -1,0 +1,46 @@
+<div class="container container-fluid">
+ <div class="row mx-auto mt-4 justify-content-center">
+   <div class="col-8">
+  <%= search_form_for @q, url: search_theaters_path do |f| %>
+  <%= f.search_field :name_cont, class:"form-control mr-2" %>
+  <br>
+  </div>
+  <div class="col-4">
+  <%= f.submit '検索', class:"btn btn-outline-success btn-block" %>
+  <% end %>
+  </div>
+ </div>
+ </div>
+ <div class="container container-fluid">
+ <h2>劇場一覧 検索結果</h2>
+  <% @results.each do |theaters| %>
+    <div class="card w-200 mx-auto mt-4 shadow-lg">
+     <div class="card-body">
+      <div class="row">
+       <div class="col-4">
+        <%= attachment_image_tag theaters, :image, size: "270x190", fallback: "no_image.jpg" %>
+       </div>
+       <div class="col-8">
+        <%= link_to theater_path(theaters.id) do %>
+        <h5 class="card-title"><%= theaters.name %></h5>
+        <% end %>
+        
+        <p><i class="far fa-comment-alt"></i> <%= theaters.comments.count %></p>
+        <% @average = 0 %>
+        <% theaters.comments.each do |comment| %>
+        <% @average += (comment.clean / theaters.comments.count ) %>
+        <% end %>
+        <p><i class="far fa-star"></i> <%= @average.round(1) %></p>
+       </div>
+     </div>
+    </div>
+   </div>
+ <% end %>
+</div>
+<div class="container">
+ <div class="row">
+  <div class="mx-auto m-3">
+  <%= paginate @results %>
+  </div>
+ </div>
+</div>

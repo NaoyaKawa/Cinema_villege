@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   scope module: :user do
     get "/" => "homes#top"
-    
+    resources :magazines, only: [:index, :show]
     resources :users, only: [:show, :edit, :update] do
       collection do
         patch 'withdraw'
@@ -24,10 +24,20 @@ Rails.application.routes.draw do
     resources :theaters, only: [:index, :show] do
       resources :favorites, only: [:create, :destroy]
       resources :comments, only: [:create, :destroy]
+      collection do
+      get 'search'
+      end
     end
   end
   
+  #管理者側ルート
   namespace :admin do
     resources :theaters
+    resources :magazines
   end
+  
+  #お問い合わせルート
+  get   'inquiry'         => 'inquiry#index'     # 入力画面
+  post  'inquiry/confirm' => 'inquiry#confirm'   # 確認画面
+  post  'inquiry/thanks'  => 'inquiry#thanks'    # 送信完了画面
 end

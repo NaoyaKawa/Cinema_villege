@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_11_082129) do
+ActiveRecord::Schema.define(version: 2021_02_22_113650) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2021_02_11_082129) do
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "clean", default: 0.0, null: false
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -44,6 +45,7 @@ ActiveRecord::Schema.define(version: 2021_02_11_082129) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_id"
   end
 
   create_table "prices", force: :cascade do |t|
@@ -54,22 +56,23 @@ ActiveRecord::Schema.define(version: 2021_02_11_082129) do
   end
 
   create_table "tags", force: :cascade do |t|
-    t.string "name"
+    t.string "tag_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "theater_tags", force: :cascade do |t|
-    t.integer "theater_id"
-    t.integer "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "theater_id"
+    t.integer "tag_id"
+    t.index ["tag_id"], name: "index_theater_tags_on_tag_id"
+    t.index ["theater_id"], name: "index_theater_tags_on_theater_id"
   end
 
   create_table "theaters", force: :cascade do |t|
     t.string "name"
     t.text "introduction"
-    t.integer "prefecture_id"
     t.string "address"
     t.string "access"
     t.string "parking"
@@ -80,6 +83,7 @@ ActiveRecord::Schema.define(version: 2021_02_11_082129) do
     t.string "image_id"
     t.float "latitude"
     t.float "longitude"
+    t.integer "prefecture", default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -90,9 +94,9 @@ ActiveRecord::Schema.define(version: 2021_02_11_082129) do
     t.datetime "remember_created_at"
     t.string "name"
     t.string "phone_number"
-    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

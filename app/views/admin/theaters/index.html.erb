@@ -1,22 +1,48 @@
-<h2>劇場一覧 管理者側</h2>
+<div class="container container-fluid">
+ <div class="row mx-auto mt-4">
+   <div class="col-5">
+   <h2>劇場一覧 管理者側</h2>
+   </div>
+   <div class="col-5">
+    <%= link_to new_admin_theater_path, data: {"turbolinks" => false}, class: "btn btn-warning pull-right" do %>
+    <i class="fas fa-plus"></i>
+    新規劇場登録
+    <% end %>
+   </div>
+ </div>
+</div>
 
-<%= link_to new_admin_theater_path, data: {"turbolinks" => false}, class: "btn btn-warning pull-right" do %>
-  <i class="fas fa-plus"></i>
-  新規劇場登録
-<% end %>
-
-<% @theaters.each do |theaters| %>
-
-<p><%= theaters.id %></p>
-<%= link_to admin_theater_path(theaters.id) do %>
-<p><%= theaters.name %></p>
-<% end %>
-<p><%#= @theater.prefecture %></p>
-
-
-
-
-
-
-
-<% end %>
+ <div class="container container-fluid">
+  <% @theaters.each do |theaters| %>
+    <div class="card w-200 mx-auto mt-4 shadow-lg">
+     <div class="card-body">
+      <div class="row">
+       <div class="col-4">
+        <%= attachment_image_tag theaters, :image, size: "270x190", fallback: "no_image.jpg" %>
+       </div>
+       <div class="col-8">
+        <h5 class="card-title"><%= theaters.id %></h5>
+        <%= link_to admin_theater_path(theaters.id) do %>
+        <h5 class="card-title"><%= theaters.name %></h5>
+        <% end %>
+        <p class="card-text text-dark"><%= theaters.introduction %></p>
+        <p class="card-text text-dark"><%= theaters.prefecture %></p>
+        <p><i class="far fa-comment-alt"></i> <%= theaters.comments.count %></p>
+        <% @average = 0 %>
+        <% theaters.comments.each do |comment| %>
+        <% @average += (comment.clean / theaters.comments.count ) %>
+        <% end %>
+        <p><i class="far fa-star"></i> <%= @average.round(1) %></p>
+       </div>
+     </div>
+    </div>
+   </div>
+ <% end %>
+</div>
+<div class="container">
+ <div class="row">
+  <div class="mx-auto m-3">
+   <%= paginate @theaters %>
+  </div>
+ </div>
+</div>

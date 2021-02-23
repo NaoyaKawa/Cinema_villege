@@ -1,0 +1,39 @@
+<div class="container">
+  <h2>記事一覧 管理者側</h2>
+
+<div class="row mx-auto m-4">
+    <div class="col-9">
+      <%= link_to new_admin_magazine_path, data: {"turbolinks" => false}, class: "btn btn-warning pull-right" do %>
+        <i class="fas fa-plus"></i>
+        新規記事
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="container container-fluid">
+  <% @magazines.each do |magazines| %>
+    <div class="card shadow-lg">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-4">
+            <%= attachment_image_tag magazines, :image, size: "250x150", fallback: "no_image.jpg" %>
+          </div>
+          <div class="col-4">
+            <p><%= magazines.id %></p>
+            <%= link_to admin_magazine_path(magazines.id) do %>
+              <h5 class="card-title"><%= magazines.title %></h5>
+            <% end %>
+            <p class="card-text text-dark"><%= magazines.created_at.strftime('%Y/%m/%d') %></p>
+          </div>
+        </div>
+      </div>
+    </div> 
+  <% end %>
+</div>
+<div class="container">
+ <div class="row">
+  <div class="mx-auto m-3">
+   <%= paginate @magazines %>
+  </div>
+ </div>
+</div>

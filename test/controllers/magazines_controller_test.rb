@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PriceTest < ActiveSupport::TestCase
+class MagazinesControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
