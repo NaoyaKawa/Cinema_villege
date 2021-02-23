@@ -1,3 +1,38 @@
 // Place all the styles related to the homes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.main-visual {
+  width: 100%;
+  height: 600px;
+  background-image: url(jake-hills.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.main-visual-content {
+  height: 300px; 
+  color: #fff;
+  text-align: left;
+  padding-left: 300px;
+  padding-top: 150px;
+}
+.main-visual-body {
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  background: #668ad8;
+  color: #FFF;
+  border-bottom: solid 4px #627295;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.second-visual-title {
+  text-align: center;
+  padding-top: 50px;
+
+}
+.second-visual-body {
+  text-align: center;
+  padding-bottom: 10px;
+}

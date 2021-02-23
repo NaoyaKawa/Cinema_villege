@@ -8,7 +8,6 @@
      </h2>
     </div>
     <div class="col-12">
-     
       <ul class="navbar-nav mr-auto">
        <% if user_signed_in? %>
         <li class="nav-item active"><%= link_to "マイページ", user_path(current_user), class: "nav-link" %></li>
@@ -22,9 +21,9 @@
        <% else %>
         <li class="nav-item active"><%= link_to "新規登録", new_user_registration_path, class: "nav-link" %></li>
         <li class="nav-item active"><%= link_to "ログイン", new_user_session_path, class: "nav-link" %></li>
+        <li class="nav-item active"><%= link_to "管理者ログイン", new_admin_session_path, class: "nav-link" %></li>
        <% end %>
       </ul>
-    
     </div>
    </div>
   </div>

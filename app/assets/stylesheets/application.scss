@@ -16,3 +16,8 @@
 @import "bootstrap";
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
+
+.pagination>li>a {          
+  border: none; 
+  color: #696969; 
+}

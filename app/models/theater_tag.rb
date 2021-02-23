@@ -1,2 +1,0 @@
-class TheaterTag < ApplicationRecord
-end
