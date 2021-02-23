@@ -1,5 +1,4 @@
 class Theater < ApplicationRecord
-  has_many :prices, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   attachment :image

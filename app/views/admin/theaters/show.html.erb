@@ -1,33 +1,129 @@
-<h2>劇場詳細　管理者側</h2>
+<div class="container container-m">
+  <div class="card w-200 mx-auto mt-4 shadow-lg">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+        <h2 class="card-title m-2"><%= @theater.name %></h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-9">
+          <div class="card-text m-4">
+            <p><%= @theater.introduction %></p>
+            <p><%= @theater.prefecture %></p>
+            <p>投稿日時：<%= @theater.created_at.strftime('%Y/%m/%d') %></p>
+            <p>コメント件数：<%= @theater.comments.count %></p>
+            <% @average = 0 %>
+            <% @theater.comments.each do |comment| %>
+              <% @average += (comment.clean / @theater.comments.count ) %>
+            <% end %>
+            <p>評価 <%= @average.round(1) %>
+            <span id="star-rate-<%= @average.to_i %>"></span>
+            <script>
+              $('#star-rate-<%= @average.to_i %>').raty({
+              size: 36,
+              starOff: "<%= asset_path('star-off.png') %>",
+              starOn: "<%= asset_path('star-on.png') %>",
+              starHalf: "<%= asset_path('star-half.png') %>",
+              half: true,
+              readOnly: true,
+              score: <%= @average %>,
+              });
+            </script>
+            </p>
+          </div>
+        </div>
+          <div class="col-2">
+            <p class="badge badge-danger">いいね ♥ <%= @theater.favorites.count %>件</p>
+            <p><%= link_to "編集", edit_admin_theater_path(@theater), class: "btn btn-sm btn-success" %></p>
+            <p><%= link_to "削除", admin_theater_path(@theater), class: "btn btn-sm btn-danger", method: :delete, data: { confirm: '本当に削除しますか?' } %></p>
+          </div>
+      </div>
 
-<p><%= @theater.id %></p>
-
-<p><%= @theater.name %></p>
-
-<p><%= @theater.introduction %></p>
-
-<p><%= @theater.prefecture %></p>
-
-<p><%= @theater.address %></p>
-<div id="map"></div>
-
-<p><%= @theater.access %></p>
-
-<p><%= @theater.parking %></p>
-
-<p><%= @theater.phone_number %></p>
-
-<p><%= @theater.url %></p>
-
-<p><%= attachment_image_tag @theater, :image %></p>
-
-<p>投稿日時：<%= @theater.created_at.strftime('%Y/%m/%d') %></p>
-
-<p><%= link_to "Edit", edit_admin_theater_path(@theater), class: "btn btn-success" %></p>
-<p><%= link_to "Destroy", admin_theater_path(@theater), class: "btn btn-sm btn-danger", method: :delete %></p>
+      <div class="row">
+        <div class="col-6">
+          <table class="table">
+            <tbody>
+            <tr>
+              <th scope="col-2">住所</th>
+              <td><%= @theater.address %></td>
+            </tr>
+            <tr>
+              <th scope="col">アクセス</th>
+              <td><%= @theater.access %></td>
+            </tr>
+            <tr>
+              <th scope="col">駐車場</th>
+              <td><%= @theater.parking %></td>
+            </tr>
+            <tr>
+              <th scope="col">電話番号</th>
+              <td><%= @theater.phone_number %></td>
+            </tr>
+            <tr>
+              <th scope="col">URL</th>
+              <td><%= link_to @theater.url %></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-4 my-4">
+          <p><%= attachment_image_tag @theater, :image, size: "270x190", fallback: "no_image.jpg" %></p>
+          <div id="map"></div>
+        </div>
+      </div>
+    <% if @theater.comments.count > 0 %>
+      <h2 class="m-2">コメント</h2>
+        <% @theater.comments.each do |comments| %>
+          <table class="table">
+           <tbody>
+            <tr>
+              <td>
+              <%= comments.user.name %>
+              </td>
+              <td>
+              <%= comments.created_at.strftime('%Y/%m/%d') %>
+              </td>
+              <td>
+              <%= comments.comment %>
+              </td>
+              <td>
+                <div class="relative-comment-evaluation">
+                <span>評価：</span>
+                <span id="star-rate-<%= comments.id %>"></span>
+                <script>
+                $('#star-rate-<%= comments.id %>').raty({
+                size: 36,
+                starOff: "<%= asset_path('star-off.png') %>",
+                starOn: "<%= asset_path('star-on.png') %>",
+                starHalf: "<%= asset_path('star-half.png') %>",
+                half: true,
+                readOnly: true,
+                score: <%= comments.clean %>,
+                });
+                </script>
+                <%= comments.clean %>
+                </div>
+              </td>
+              <td>
+                <div class="comment-delete">
+                  <%= link_to "削除", theater_comment_path(comments.theater, comments), method: :delete, class:"btn btn-outline-danger" %>
+                </div>
+              </td>
+            </tr>
+           </tbody>
+          </table>
+        <% end %>
+        <% else %>
+        <h5 class="m-2">コメントはありません</h5>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script type="text/javascript">
-  function initMap() {
+function initMap() {
 <%# latitude,longitudeから位置を特定 %>
     var test ={lat: <%= @theater.latitude %>, lng: <%= @theater.longitude %>};
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -61,7 +157,5 @@
 <%# 表示するmapのcss %>
 <style type="text/css">
   #map { height: 200px;
-         width: 70%;}
+         width: 100%;}
 </style>
-
-

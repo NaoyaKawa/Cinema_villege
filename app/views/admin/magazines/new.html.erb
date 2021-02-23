@@ -15,11 +15,11 @@
          </tr>
          <tr>
           <th scope="col-2">内容</th>
-          <td><%= f.text_field :content, autofocus: true %></td>
+          <td><%= f.text_field :content, autofocus: true, class:"form-control" %></td>
          </tr>
          <tr>
           <th scope="col-2">画像</th>
-          <td><%= f.attachment_field :image %></td>
+          <td><%= f.attachment_field :image, , class: "form-control-file image"%></td>
          </tr>
          <tr>
           <td>

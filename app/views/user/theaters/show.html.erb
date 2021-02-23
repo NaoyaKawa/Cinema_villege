@@ -69,21 +69,22 @@
           <div id="map"></div>
         </div>
       </div>
+      <% if @theater.comments.count > 0 %>
       <h2 class="m-2">コメント</h2>
         <% @theater.comments.each do |comments| %>
           <table class="table">
            <tbody>
             <tr>
-              <td>
+              <td scope="col-1">
               <%= comments.user.name %>
               </td>
-              <td>
+              <td scope="col-1">
               <%= comments.created_at.strftime('%Y/%m/%d') %>
               </td>
-              <td>
+              <td scope="col-4">
               <%= comments.comment %>
               </td>
-              <td>
+              <td scope="col-4">
                 <div class="relative-comment-evaluation">
                 <span>評価：</span>
                 <span id="star-rate-<%= comments.id %>"></span>
@@ -101,7 +102,7 @@
                 <%= comments.clean %>
                 </div>
               </td>
-              <td>
+              <td scope="col-1">
                 <% if comments.user == current_user %>
                   <div class="comment-delete">
                     <%= link_to "削除", theater_comment_path(comments.theater, comments), method: :delete, class:"btn btn-outline-danger" %>
@@ -109,12 +110,16 @@
                 <% end %>
               </td>
             </tr>
-           </tbody>
+           </thead>
           </table>
         <% end %>
+        <% else %>
+        <h5 class="m-2">コメントはありません</h5>
+        <% end %>
+        
         <h2 class="m-2">コメントを投稿する</h2>
         <%= form_with(model:[@theater, @comment], local: true) do |f| %>
-          <div class="form-group">
+          <div class="form-group mx-auto m">
             <%= f.text_area :comment, placeholder: "コメントをここに", class:"form-control" %>
             <div class="field" id="star">
             <%= f.label :clean, "評価：" %>

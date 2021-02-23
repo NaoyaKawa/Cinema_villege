@@ -1,7 +1,7 @@
 class Admin::TheatersController < ApplicationController
+  before_action :authenticate_admin!
   def index
     @theaters = Theater.all
-    @theater = current_user.theaters.new
   end
 
   def show
@@ -42,7 +42,7 @@ class Admin::TheatersController < ApplicationController
   def destroy
     @theater = Theater.find(params[:id])
     @theater.destroy
-    redirect_to theaters_path
+    redirect_to admin_theaters_path
   end
 
   private
