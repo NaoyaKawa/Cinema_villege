@@ -8,7 +8,7 @@
        <tbody>
         <%= form_with model:[:admin,@magazine], method: :post, local:true do |f| %>
          <tr>
-          <th scope="col-2">氏名</th>
+          <th scope="col-2">タイトル</th>
           <td>
            <%= f.text_field :title, autofocus: true %>
           </td>
