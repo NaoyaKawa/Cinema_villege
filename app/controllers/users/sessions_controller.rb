@@ -13,7 +13,7 @@ class Users::SessionsController < Devise::SessionsController
 
   protected
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:email])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :encrypted_password])
   end
   # before_action :configure_sign_in_params, only: [:create]
 
