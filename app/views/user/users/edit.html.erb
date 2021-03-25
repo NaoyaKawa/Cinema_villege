@@ -8,28 +8,38 @@
        <tbody>
         <%= form_with model: @user, local:true do |f| %>
          <tr>
+          <div class="form">
           <th scope="col-2">氏名</th>
           <td>
            <%= f.text_field :name, autofocus: true %>
           </td>
+          </div>
          </tr>
          <tr>
+          <div class="form">
           <th scope="col-2">電話番号</th>
           <td><%= f.text_field :phone_number, autofocus: true %></td>
          </tr>
+          </div>
          <tr>
+          <div class="form">
           <th scope="col-2">メールアドレス</th>
           <td><%= f.text_field :email, autofocus: true %></td>
          </tr>
+         </div>
          <tr>
+          <div class="form">
           <th scope="col-2">ユーザー画像</th>
           <td><%= f.attachment_field :image %></td>
          </tr>
+         </div>
          <tr>
+          <div class="action">
           <td>
            <%= f.submit "編集内容を保存",class: "btn btn-success" %>
            <%= link_to "退会する", withdraw_users_path, method: :patch, class: "btn btn-danger", data: { confirm: '本当に退会しますか?'} %>
           </td>
+          </div>
          </tr>
         <% end %>
        </tbody>

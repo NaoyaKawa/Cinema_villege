@@ -20,6 +20,6 @@ class User::TheatersController < ApplicationController
 
   private
   def set_q
-    @q = User.ransack(params[:q])
+    @q = Theater.ransack(params[:q])
   end
 end
