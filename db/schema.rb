@@ -46,26 +46,7 @@ ActiveRecord::Schema.define(version: 2021_02_22_113650) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image_id"
-  end
 
-  create_table "prices", force: :cascade do |t|
-    t.integer "theater_id"
-    t.string "price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "tags", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "theater_tags", force: :cascade do |t|
-    t.integer "theater_id"
-    t.integer "tag_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "theaters", force: :cascade do |t|

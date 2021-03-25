@@ -4,7 +4,7 @@ class User::CommentsController < ApplicationController
     comment = current_user.comments.new(comment_params)
     comment.theater_id = theater.id
     comment.save
-    redirect_to theaters_path(theater)
+    redirect_to theater_path(theater.id)
   end
 
   def destroy
@@ -14,6 +14,6 @@ class User::CommentsController < ApplicationController
 
   private
   def comment_params
-    params.require(:comment).permit(:comment)
+    params.require(:comment).permit(:comment, :clean)
   end
 end

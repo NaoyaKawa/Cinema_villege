@@ -1,42 +1,31 @@
-<header class="navbar navbar-fixed-top navbar-inverse" style="background:#D9E5FF;">
+<header class="shadow-sm">
+ <nav class="navbar navbar-expand-lg navbar-light">
   <div class="container">
-  <% if admin_signed_in? %><!-- 管理者がログインしている時 -->
-    <h2>
-      <%= link_to "Cineme Village", "/", class:"text-dark" %>
-    </h2>
-  <% else %> <!--カスタマーがログインしている時 -->
-    <h2>
+   <div class="row">
+    <div class="col-12">
+     <h2><i class="fas fa-film"></i>
       <%= link_to "Cinema Village", "/", class:"text-dark" %>
-    </h2>
-  <% end %>
-  
-  <nav>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <nav class="navbar navbar-expand-lg navbar-light">
-    <ul class="nav navbar-nav navbar-right ml-auto">
-      <% if user_signed_in? %> <!--カスタマーがログインしている時 -->
-        <li class="header-name">
-          ようこそ、<%= current_user.name %>さん！ 
-        </li>
-        <li><%= link_to "マイページ", user_path, method: :delete %></li>
-        <li><%= link_to "劇場一覧", theaters_path, method: :delete %></li>
-        <li><%= link_to "マガジン", magazine_path, method: :delete %></li>
-        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-      <% elsif admin_signed_in? %>
-      
-        <li>管理者</li>
-        <li><%= link_to "劇場一覧", admin_theater_path, method: :delete %></li>
-        <li><%= link_to "マガジン", admin_magazine_path, method: :delete %></li>
-        <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
-      <% else %>
-        <li>ゲストユーザー</li>
-        <li><%= link_to "新規登録", new_user_registration_path %></li>
-        <li><%= link_to "ログイン", new_user_session_path %></li>
-      <% end %>
-      
-    </ul>
-    </nav>
-    </button>
-  </nav>
+     </h2>
+    </div>
+    <div class="col-12">
+      <ul class="navbar-nav mr-auto">
+       <% if user_signed_in? %>
+        <li class="nav-item active"><%= link_to "マイページ", user_path(current_user), class: "nav-link" %></li>
+        <li class="nav-item active"><%= link_to "劇場一覧", theaters_path, class: "nav-link" %></li>
+        <li class="nav-item active"><%= link_to "マガジン", magazines_path, class: "nav-link" %></li>
+        <li class="nav-item active"><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link" %></li>
+       <% elsif admin_signed_in? %>
+        <li class="nav-item active"><%= link_to "劇場一覧", admin_theaters_path, class: "nav-link" %></li>
+        <li class="nav-item active"><%= link_to "マガジン", admin_magazines_path, class: "nav-link" %></li>
+        <li class="nav-item active"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link" %></li>
+       <% else %>
+        <li class="nav-item active"><%= link_to "新規登録", new_user_registration_path, class: "nav-link" %></li>
+        <li class="nav-item active"><%= link_to "ログイン", new_user_session_path, class: "nav-link" %></li>
+        <li class="nav-item active"><%= link_to "管理者ログイン", new_admin_session_path, class: "nav-link" %></li>
+       <% end %>
+      </ul>
+    </div>
+   </div>
   </div>
+ </nav>
 </header>

@@ -1,8 +1,105 @@
-<%= @user.name %>
-
-<%= @user.email %>
-
-<%= @user.phone_number %>
-
-<p><strong>登録情報　</strong>
-<%= link_to "編集する", edit_user_path(@user), class: "btn btn-success"%>
+<div class="container container-m">
+  <div class="card w-200 mx-auto mt-4 shadow-lg">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-2">
+          <p><%= attachment_image_tag @user, :image, :fill, 100, 100, class:"rounded-circle" %></p>
+        </div>
+        <div class="col-6">
+        <h2 class="card-title m-2"><%= @user.name %></h2>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">メールアドレス</th>
+              <td><%= @user.email %></td>
+            </tr>
+            <tr>
+              <th scope="row">電話番号</th>
+              <td><%= @user.phone_number %></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <%= link_to "編集する", edit_user_path(@user) %>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="container container-m">
+<h1 class="m-4">コメント一覧</h1>  
+<% @user.comments.each do |comments| %>
+  <div class="card w-200 mx-auto mt-4 shadow-lg">
+    <div class="card-body">
+        <div class="row">
+         <div class="col-10">
+          <h3>劇場名
+          <%= link_to theater_path(comments.theater.id) do %>
+          <%= comments.theater.name %>
+          <% end %>
+          </h3>
+          <p>投稿日 <%= comments.created_at.strftime('%Y/%m/%d') %>
+          </p>
+          <p>コメント 
+          <%= comments.comment %>
+          </p>
+          <p>
+            <div class="relative-comment-evaluation">
+            <span>評価：</span>
+            <span id="star-rate-<%= comments.id %>"></span>
+            <script>
+            $('#star-rate-<%= comments.id %>').raty({
+            size: 36,
+            starOff: "<%= asset_path('star-off.png') %>",
+            starOn: "<%= asset_path('star-on.png') %>",
+            starHalf: "<%= asset_path('star-half.png') %>",
+            half: true,
+            readOnly: true,
+            score: <%= comments.clean %>,
+            });
+            </script>
+            <%= comments.clean %>
+            </div>
+          </p>
+         </div>
+         <div class="col-2">
+          <p>
+            <% if comments.user == current_user %>
+              <div class="comment-delete">
+                <%= link_to "削除", theater_comment_path(comments.theater, comments), method: :delete, class:"btn btn-outline-danger" %>
+              </div>
+            <% end %>
+          </p>
+         </div>
+        </div>
+    </div>
+  </div>
+<% end %>
+</div>
+<div class="container container-m">
+<h1 class="m-4">いいね一覧</h1>  
+<% @user.favorites.each do |favorites| %>
+  <div class="card w-200 mx-auto mt-4 shadow-lg">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4">
+          <h3>劇場名
+              <%= link_to theater_path(favorites.theater.id) do %>
+              <%= favorites.theater.name %>
+              <% end %>
+            </h3>
+        </div>
+        <div class="col-2">
+          <p>登録日
+            <%= favorites.created_at.strftime('%Y/%m/%d') %>
+          </p>
+        </div>
+        <div class="col-2">
+          <h1 class="badge badge-danger">
+            いいね ♥ <%= favorites.theater.favorites.count %>件
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>

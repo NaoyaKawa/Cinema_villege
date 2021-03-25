@@ -1,1 +1,54 @@
-<h1>トップページ</h1>
+<div class="main-visual">
+ <div class="main-visual-content">
+  <h1><strong>Cinema Village</strong></h1>
+ </div>
+</div>
+<div class="second-visual">
+ <div class="second-visual-title">
+  <h2>Cinema Villageとは？</h2>
+ </div>
+ <div class="second-visual-body">
+  <p>日本全国に点在する映画館の選択をより多様に評価できるように立ち上げた映画館のの総合検索サイトです。</p>
+ </div>
+</div>
+<div class="container">
+ <div class="row">
+    <div class="btn-wrapper col-10 mx-auto col-sm-10 col-lg-8 col-xl-7">
+     <div class="row">
+      <%= link_to "劇場一覧へ", theaters_path, class: 'btn btn-info btn-sm btn-block mb-3' %>
+     </div>
+    </div>
+  </div>
+ </div>
+</div>
+<div class="container">
+ <h2 class="second-visual-title">ランキング</h2>
+ <% @all_ranks.each.with_index(1) do |theater, i| %>
+  <h2 class="card-title m-2"><%= i %>位</h2>
+    <div class="card w-200 mx-auto mt-4 shadow-lg">
+     <div class="card-body">
+ 
+  <div class="row">
+   <div class="col-4">
+    <p><%= attachment_image_tag theater, :image, size: "350x200", fallback: "no_image.jpg" %></p>
+   </div>
+    <div class="col-6">
+      <%= link_to theater_path(theater.id) do %>
+       <h2 class="card-title"><%= theater.name %></h2>
+      <% end %>
+      <p class="card-text"><%= theater.prefecture %></p>
+      <p class="badge badge-danger">
+      いいね数 ♥ <%= theater.favorites.count %>件
+      </p>
+      <p>コメント件数：<%= theater.comments.count %></p>
+      <% @average = 0 %>
+      <% theater.comments.each do |comment| %>
+       <% @average += (comment.clean / theater.comments.count ) %>
+      <% end %>
+      <p>総合評価 <%= @average.round(1) %></p>
+     </div>
+    </div>
+   </div>
+  </div>
+ <% end %>
+</div> 

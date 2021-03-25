@@ -1,6 +1,7 @@
 class Admin::TheatersController < ApplicationController
+  before_action :authenticate_admin!
   def index
-    @theaters = Theater.all
+    @theaters = Theater.all.page(params[:page]).per(10)
   end
 
   def show
@@ -41,11 +42,11 @@ class Admin::TheatersController < ApplicationController
   def destroy
     @theater = Theater.find(params[:id])
     @theater.destroy
-    redirect_to admin_theater_path
+    redirect_to admin_theaters_path
   end
 
   private
   def theater_params
-    params.require(:theater).permit(:name, :introduction, :address, :access, :parking, :phone_number, :url, :image)
+    params.require(:theater).permit(:name, :introduction, :address, :access, :parking, :phone_number, :url, :image, :prefecture)
   end
 end

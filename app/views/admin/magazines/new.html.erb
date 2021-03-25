@@ -1,0 +1,36 @@
+<div class="container container-m">
+ <div class="card w-200 mx-auto mt-4 shadow-lg">
+  <div class="card-body">
+   <div class="row">
+    <div class="col-12">
+     <h2 class="card-title">記事投稿</h2>
+      <table class="table">
+       <tbody>
+        <%= form_with model:[:admin,@magazine], method: :post, local:true do |f| %>
+         <tr>
+          <th scope="col-2">タイトル</th>
+          <td>
+           <%= f.text_field :title, autofocus: true %>
+          </td>
+         </tr>
+         <tr>
+          <th scope="col-2">内容</th>
+          <td><%= f.text_field :content, autofocus: true, class:"form-control" %></td>
+         </tr>
+         <tr>
+          <th scope="col-2">画像</th>
+          <td><%= f.attachment_field :image, class: "form-control-file image" %></td>
+         </tr>
+         <tr>
+          <td>
+           <%= f.submit "新規登録", class: "btn btn-primary btn-lg pull-right" %>
+          </td>
+         </tr>
+        <% end %>
+       </tbody>
+      </table>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>

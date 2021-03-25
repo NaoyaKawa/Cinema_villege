@@ -1,18 +1,41 @@
-<h2>登録情報を編集</h2>
-<%= form_with model: @user, local:true do |f| %>
-
-<p>氏名</p>
-<%= f.text_field :name, autofocus: true %>
-
-<td>住所</td>
-<%#= f.text_field :prefecture, autofocus: true %>
-
-<td>電話番号</td>
-<%= f.text_field :phone_number, autofocus: true %>
-
-<td>メールアドレス</td>
-<%= f.text_field :email, autofocus: true %>
-
-<%= f.submit "編集内容を保存",class: "btn btn-success" %>
-<%= link_to "退会する",withdraw_users_path,class: "btn btn-danger" %>
-<% end %>
+<div class="container container-m">
+ <div class="card w-200 mx-auto mt-4 shadow-lg">
+  <div class="card-body">
+   <div class="row">
+    <div class="col-12">
+     <h2 class="card-title">登録情報を編集</h2>
+      <table class="table">
+       <tbody>
+        <%= form_with model: @user, local:true do |f| %>
+         <tr>
+          <th scope="col-2">氏名</th>
+          <td>
+           <%= f.text_field :name, autofocus: true %>
+          </td>
+         </tr>
+         <tr>
+          <th scope="col-2">電話番号</th>
+          <td><%= f.text_field :phone_number, autofocus: true %></td>
+         </tr>
+         <tr>
+          <th scope="col-2">メールアドレス</th>
+          <td><%= f.text_field :email, autofocus: true %></td>
+         </tr>
+         <tr>
+          <th scope="col-2">ユーザー画像</th>
+          <td><%= f.attachment_field :image %></td>
+         </tr>
+         <tr>
+          <td>
+           <%= f.submit "編集内容を保存",class: "btn btn-success" %>
+           <%= link_to "退会する", withdraw_users_path, method: :patch, class: "btn btn-danger", data: { confirm: '本当に退会しますか?'} %>
+          </td>
+         </tr>
+        <% end %>
+       </tbody>
+      </table>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>

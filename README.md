@@ -1,24 +1,30 @@
-# README
+# Cinema Villege
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
+映画館の評価、レビューサイト
 
-Things you may want to cover:
+### サイトテーマ
+日本国内の映画館をユーザーが評価していき、通常のレビューより深堀した評価を行うサイト
+例えば国内シアターには家族連れやカップル向けだけでなく食事をしながらや寝転がりながら見れるシアターやドライブシアターなど様々なあり、そういったシアターを広めていきたいとおもいました。
+またニュース機能を導入にユーザーの知らない映画を共有していきます。
 
-* Ruby version
+### テーマを選んだ理由
+元々映画館に行くのが趣味だったで映画館自体のレビューはあるが各シアターなどの細かいレビューがなく作成したいと思ったから。
+現在はコロナの影響で映画館に行きにくい状況になっているが感染対策をしっかり行っている所が多くあるのでそれも伝えていきたいと思ったから。
 
-* System dependencies
+### ターゲットユーザ
+映画館に通うユーザー
 
-* Configuration
+### 主な利用シーン
+普段使って映画館の細かい情報を共有
+行ったことのない映画館の情報収集
 
-* Database creation
+## 機能一覧
+https://docs.google.com/spreadsheets/d/1KJxxq5HbTfBv9p_RsgPENhPQ1JFFAfb84nMdMWr9-jQ/edit?usp=sharing
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9

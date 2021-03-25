@@ -1,32 +1,40 @@
-<%= form_for @inquiry, :url => inquiry_confirm_path do |f| %>
-  <div class="page-header">
-    <h1>お問い合わせ</h1>
-  </div>
-
-  <% if @inquiry.errors.any? %>
-    <div class="alert alert-danger" role="alert">
-      <strong>入力内容にエラーがあります</strong>
-      <ul>
-        <% @inquiry.errors.each do |attr, msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+<div class="container container-m">
+  <div class="card w-200 mx-auto mt-4 shadow-lg">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+         <%= form_for @inquiry, :url => inquiry_confirm_path do |f| %>
+          <div class="page-header">
+           <h1>お問い合わせ</h1>
+          </div>
+          <% if @inquiry.errors.any? %>
+           <div class="alert alert-danger" role="alert">
+            <strong>入力内容にエラーがあります</strong>
+            <ul>
+             <% @inquiry.errors.each do |attr, msg| %>
+              <li><%= msg %></li>
+             <% end %>
+            </ul>
+           </div>
+          <% end %>
+          <table class="table">
+           <tr>
+            <th>名前<span class="text-danger">（必須）</span></th>
+            <td><%= f.text_field :name, class:"form-control" %></td>
+           </tr>
+           <tr>
+            <th>メールアドレス<span class="text-danger">（必須）</span></th>
+            <td><%= f.text_field :email, class:"form-control" %></td>
+           </tr>
+           <tr>
+            <th>お問い合わせ内容</th>
+            <td><%= f.text_area :message, class:"form-control" %></td>
+           </tr>
+          </table>
+          <%= f.submit '確認', class: 'btn btn-primary' %>
+         <% end %>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <table class="table">
-    <tr>
-      <th>名前<span class="text-danger">（必須）</span></th>
-      <td><%= f.text_field :name %></td>
-    </tr>
-    <tr>
-      <th>メールアドレス<span class="text-danger">（必須）</span></th>
-      <td><%= f.text_field :email %></td>
-    </tr>
-    <tr>
-      <th>お問い合わせ内容</th>
-      <td><%= f.text_area :message %></td>
-    </tr>
-  </table>
-  <%= f.submit '確認', class: 'btn btn-primary' %>
-<% end %>
+  </div>
+</div>

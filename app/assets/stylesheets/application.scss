@@ -17,21 +17,7 @@
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
 
-ul {
-  list-style-type: none;
-  text-align: center;
-}
-.header-background {
-  background-color: #ffb6b9;
-  text-align: center;
-  color: #5d1b1d;
-}
-
-.full-page {
-  background-image: image-url('back-ground.jpg');
-  height: 100%;
-  background-size:cover;
-  background-color:rgba(255,255,255,0.6);
-  background-blend-mode:lighten;
-　background-size: 100%;
+.pagination>li>a {          
+  border: none; 
+  color: #696969; 
 }
